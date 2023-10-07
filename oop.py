@@ -33,7 +33,7 @@ class Hall:
                     row.append("Available")
                 self._seats[id].append(row)
         else:
-            print('All inputs Should be string')
+            print('* All inputs Should be string')
 
     def book_seats(self, id, seat_list):
         if id in self._seats:
@@ -43,13 +43,13 @@ class Hall:
                 if 1 <= row <= self._rows and 1 <= col <= self._cols:
                     if seats[row - 1][col - 1] == 'Available':
                         seats[row - 1][col - 1] = 'Booked'
-                        print(f'Seat Booked Succesfully for : ({row}, {col})')
+                        print(f'=> Seat Booked Succesfully for : ({row}, {col})')
                     else:
-                        print(f"Seat ({row}, {col}) is already booked")
+                        print(f"=> * Seat ({row}, {col}) is already booked")
                 else:
-                    print("Invalid seat selection")
+                    print("=> Invalid seat selection")
         else:
-            print(f'Invalid show ID : {id}')
+            print(f'=> Invalid show ID : {id}')
 
     def view_show_list(self):
         print('Show List of hall: ',self._hall_no, ' => ')
@@ -82,12 +82,13 @@ class Hall:
 # Create a Cinema Hall
 cinema_hall = Star_Cinema('Start Cinema', 'Dhaka')
 
-# create a hall and entry
+#
 hall1 = Hall(5, 10, cinema_hall.halls())
 cinema_hall.entry_hall(hall1)
 hall1.entry_show('11', 'Rajanikanta', '10:00 AM')
 hall1.entry_show('12', 'hello dear', '2:00 PM')
 
+# ticketing system
 while True:
     print('1. View All Show')
     print('2. View Available sits')
