@@ -25,7 +25,7 @@ class Hall:
     
     def entry_show(self, id, movie_name, time):
         if type(id) == str and type(movie_name) == str and type(time) == str:        
-            self._show_list.append((id, movie_name, time))
+            self._show_list.append((f'Show id : {id}.', f'Movie name : {movie_name}.', f'Time : {time}.'))
             self._seats[id] = []
             for i in range(self._rows):
                 row = []
@@ -43,7 +43,7 @@ class Hall:
                 if 1 <= row <= self._rows and 1 <= col <= self._cols:
                     if seats[row - 1][col - 1] == 'Available':
                         seats[row - 1][col - 1] = 'Booked'
-                        print('Seat Booked Succesfully')
+                        print(f'Seat Booked Succesfully for : ({row}, {col})')
                     else:
                         print(f"Seat ({row}, {col}) is already booked")
                 else:
@@ -52,8 +52,12 @@ class Hall:
             print(f'Invalid show ID : {id}')
 
     def view_show_list(self):
-        print('Show List of hall: ',self._hall_no, end=' => ')
-        print(self._show_list)
+        print('Show List of hall: ',self._hall_no, ' => ')
+        # print(self._show_list)
+        for show in self._show_list:
+            for val in show:
+                print(val, end= ' ')
+            print()
     
     def view_available_seats(self, id):
         if id in self._seats:
@@ -62,6 +66,15 @@ class Hall:
                 for j in range(self._cols):
                     if self._seats[id][i][j] == "Available":
                         print(f"{(i + 1, j + 1)}", end=' ')
+            print()
+            print("Seats in Matrics :")
+            for i in range(self._rows):
+                for j in range(self._cols):
+                    if self._seats[id][i][j] == "Available":
+                        print(f'0', end=' ')
+                    else:
+                        print('1', end= ' ')
+                print()
             print()
         else:
             print(f"Show with ID {id} not found.")
@@ -72,21 +85,37 @@ cinema_hall = Star_Cinema('Start Cinema', 'Dhaka')
 # create a hall and entry
 hall1 = Hall(5, 10, cinema_hall.halls())
 cinema_hall.entry_hall(hall1)
-hall1.entry_show('E1', 'Rajanikanta', '10:00 AM')
-hall1.entry_show('E1', 'Hero The Nayok', '12:00 AM')
-hall1.entry_show('E2', 5, '2:00 PM')
-hall1.entry_show('E2', 'hello dear', '2:00 PM')
-hall1.book_seats('E1', [(1, 1)])
-hall1.book_seats('E1', [(1, 1)])
-hall1.book_seats('E1', [(2, 4)])
+hall1.entry_show('11', 'Rajanikanta', '10:00 AM')
+hall1.entry_show('12', 'hello dear', '2:00 PM')
 
-hall1.view_show_list()
-hall1.view_available_seats('E1')
+while True:
+    print('1. View All Show')
+    print('2. View Available sits')
+    print('3. Book A Ticket')
+    print('4. Exit')
 
-# create another hall and entry
-hall2 = Hall(5, 4, cinema_hall.halls())
-cinema_hall.entry_hall(hall2)
-hall2.entry_show('E4', 'Kopa Samsu', '10:30 AM')
-hall2.entry_show('E4', 'Samsu The King', '11:30 AM')
-hall2.book_seats('E4', [(1, 4)])
-hall2.view_available_seats('E4')
+    x = int(input('Enter a Option : '))
+    if x == 1:
+        print('--------------')
+        hall1.view_show_list()
+        print('--------------')
+    elif x == 2:
+        print('--------------')
+        v = input('Please Input Movie Id : ')
+        hall1.view_available_seats(v)
+        print('--------------')
+    elif x == 3:
+        print('--------------')
+        v = input('Please Input Movie Id : ')
+        n = int(input('Please enter ticket number: '))
+        t_list = []
+        for i in range(n):
+            r = int(input(f'Please enter Row for person {i + 1}: '))
+            c = int(input(f'Please enter Col for person {i + 1}: '))
+            t_list.append((r, c))
+        # print(t_list)
+        hall1.book_seats(v, t_list)
+        print('--------------')
+
+    elif x == 4:
+        break
