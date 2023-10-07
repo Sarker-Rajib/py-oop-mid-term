@@ -96,23 +96,26 @@ while True:
     print('4. Exit')
 
     x = int(input('Enter a Option : '))
-    if x == 1:
+    if 1 > x or x > 4:
+        print('=> Invalid Selection')
+        print('--------------')
+    elif x == 1:
         print('--------------')
         hall1.view_show_list()
         print('--------------')
     elif x == 2:
         print('--------------')
-        v = input('Please Input Movie Id : ')
+        v = input('= > Please Input Movie Id : ')
         hall1.view_available_seats(v)
         print('--------------')
     elif x == 3:
         print('--------------')
-        v = input('Please Input Movie Id : ')
-        n = int(input('Please enter ticket number: '))
+        v = input('=> Please Input Movie Id : ')
+        n = int(input('=> How many Tickets You want to Buy : '))
         t_list = []
         for i in range(n):
-            r = int(input(f'Please enter Row for person {i + 1}: '))
-            c = int(input(f'Please enter Col for person {i + 1}: '))
+            r = int(input(f'= > Please enter Row for person {i + 1}: '))
+            c = int(input(f'= > Please enter Col for person {i + 1}: '))
             t_list.append((r, c))
         # print(t_list)
         hall1.book_seats(v, t_list)
